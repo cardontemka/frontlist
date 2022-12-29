@@ -3,6 +3,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase"
+import styles from './styles/Home.module.css'
+import logo from "./images/spotify.png"
 
 export const Home = () => {
     const [user, setUser] = useState(null);
@@ -52,19 +54,47 @@ export const Home = () => {
             })
     }
     return (
-        <div>
-            <h1> Welcome to Home page </h1>
-            {user && <p>{user.email}</p>}
-            <div>
-                <button onClick={handleLogout}>Log out</button>
-                <button onClick={createPlaylist}>Create Playlist</button>
+        <main>
+            <div className={styles.menu}>
+                <div className={styles.spotify}>
+                    <img src={logo}></img>
+                    <h1> Spotify </h1>
+                    <p>®</p>
+                </div>
+                <div>
+                    <p>
+                    <NavLink to="/">Home</NavLink>
+                    </p>
+                    <p>
+                    <NavLink to="/">Search</NavLink>
+                    </p>
+                    <p>
+                    <NavLink to="/">Your Library</NavLink>
+                    </p>
+                </div>
             </div>
-            <button>
-                <NavLink to="/signup">Sign up</NavLink>
-            </button>
-            <button>
-                <NavLink to="/login">Log in</NavLink>
-            </button>
-        </div>
+            <div className={styles.contain}>
+                <div className={styles.header}>
+                    <div className={styles.backButton}> Back </div>
+                    <div className={styles.buttonsContain}>
+                        <div className={styles.textButton}>Sign up</div>
+                        <div className={styles.whiteButton}>Log in</div>
+                    </div>
+                </div>
+            </div>
+            {/* <div>
+                {user && <p>{user.email}</p>}
+                <div>
+                    <button onClick={handleLogout}>Log out</button>
+                    <button onClick={createPlaylist}>Create Playlist</button>
+                </div>
+                <button>
+                    <NavLink to="/signup">Sign up</NavLink>
+                </button>
+                <button>
+                    <NavLink to="/login">Log in</NavLink>
+                </button>
+            </div> */}
+        </main>
     )
 }
