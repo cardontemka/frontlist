@@ -5,9 +5,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase"
 import styles from './styles/Home.module.css'
 import logo from "./images/spotify.png"
+import { AiFillHome } from "react-icons/ai";
+import { BsPlusSquareFill } from "react-icons/bs";
+
 
 export const Home = () => {
     const [user, setUser] = useState(null);
+    const [isPlaylistCont, setIsPlaylistCont] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -37,11 +41,15 @@ export const Home = () => {
         })
     }, []);
 
+    const createPlaylistContain = () => {
+        setIsPlaylistCont(!isPlaylistCont)
+    }
+
     const createPlaylist = () => {
         axios
             .post("http://localhost:8287/playlists", {
-                title: "Fataa",
-                description: "dhasghfjkgsag",
+                title: "",
+                description: "fgdfgfhghjhfgfdhfjkjhgffghfgj",
                 creatorId: user.uid,
                 isPrivate: false,
             })
@@ -58,27 +66,48 @@ export const Home = () => {
             <div className={styles.menu}>
                 <div className={styles.spotify}>
                     <img src={logo}></img>
-                    <h1> Spotify </h1>
+                    <h1> Sopoti5 </h1>
                     <p>®</p>
                 </div>
                 <div>
                     <p>
-                    <NavLink to="/">Home</NavLink>
+                        <AiFillHome />
+                        <NavLink to="/" className={styles.mainBar}>Home</NavLink>
                     </p>
                     <p>
-                    <NavLink to="/">Search</NavLink>
+                        <NavLink to="/" className={styles.mainBar}>Search</NavLink>
                     </p>
                     <p>
-                    <NavLink to="/">Your Library</NavLink>
+                        <NavLink to="/" className={styles.mainBar}>Your Library</NavLink>
                     </p>
                 </div>
+                <div>
+                    <p onClick={createPlaylistContain}>
+                        <BsPlusSquareFill/>
+                        <span className={styles.mainBar}>
+                        Create Playlist
+                        </span>
+                    </p>
+                </div>
+                {/* <div>
+                    {}
+                </div> */}
             </div>
-            <div className={styles.contain}>
+            <div className={styles.cont}>
                 <div className={styles.header}>
                     <div className={styles.backButton}> Back </div>
-                    <div className={styles.buttonsContain}>
-                        <div className={styles.textButton}>Sign up</div>
-                        <div className={styles.whiteButton}>Log in</div>
+                    <div className={styles.buttonsCont}>
+                        <NavLink to="/signup" className={styles.textButton}>Sign up</NavLink>
+                        <NavLink to="/login" className={styles.whiteButton}>Log in</NavLink>
+                    </div>
+                </div>
+                <div className={styles.mainCont} style={{"display": isPlaylistCont ? "flex" : "none"}}>
+                    <div className={styles.createPlaylistCont}>
+                        <p>Title</p>
+                        <input className={styles.createPlaylistInput}/>
+                        <p>discription</p>
+                        <input className={styles.createPlaylistInput}/>
+                        <p className={styles.createPlaylistButton}>Create</p>
                     </div>
                 </div>
             </div>
