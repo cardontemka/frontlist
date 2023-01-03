@@ -35,13 +35,15 @@ main {
     width: 100%;
     height: 70px;
     display: flex;
+    position: relative;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     background-color: black;
 }
 
 .buttonsCont {
+    position: absolute;
+    right: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -78,7 +80,7 @@ main {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 50px;
+    height: 40px;
     margin: 0 0 10px;
 }
 

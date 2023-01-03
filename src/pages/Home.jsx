@@ -1,6 +1,6 @@
 import axios from "axios";
 import { onAuthStateChanged, signOut } from "firebase/auth"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase"
 import styles from './styles/Home.module.css'
@@ -8,10 +8,13 @@ import cp from './styles/CreatePlaylist.module.css'
 import logo from "./images/spotify.png"
 import { AiFillHome, AiOutlineCloseCircle } from "react-icons/ai";
 import { BsPlusSquareFill } from "react-icons/bs";
-
+import { BiLibrary } from "react-icons/bi";
+import { RiSearchLine } from "react-icons/ri";
+import { ThemeContext } from "../providers/ThemeContext";
 
 export const Home = () => {
-    const [user, setUser] = useState(null);
+    const { user } = useContext(ThemeContext);
+    // const [user, setUser] = useState(null);
     const [isPlaylistCont, setIsPlaylistCont] = useState(false);
     const [title, setTitle] = useState('');
     const [titleAlert, setTitleAlert] = useState(false);
@@ -19,19 +22,19 @@ export const Home = () => {
     const [playlists, setPlaylists] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user)
+    // useEffect(() => {
+    // onAuthStateChanged(auth, (user) => {
+    //     if (user) {
+    //         setUser(user)
 
-                const uid = user.uid;
-                console.log(uid);
-            } else {
-                setUser(null)
-                console.log('user is logged out');
-            }
-        })
-    }, []);
+    //         const uid = user.uid;
+    //         console.log(uid);
+    //     } else {
+    //         setUser(null)
+    //         console.log('user is logged out');
+    //     }
+    // })
+    // }, []);
 
     useEffect(() => {
         axios.get("http://localhost:8287/playlists")
@@ -41,8 +44,10 @@ export const Home = () => {
     })
 
     const createPlaylistContainHandler = () => {
-        setIsPlaylistCont(!isPlaylistCont)
-        setTitleAlert(false)
+        if (user) {
+            setIsPlaylistCont(!isPlaylistCont)
+            setTitleAlert(false)
+        }
     }
 
     const handleLogout = () => {
@@ -59,28 +64,26 @@ export const Home = () => {
     }
 
     const createPlaylist = () => {
-        if (title) {
-            setTitle('')
-            setDescription('')
-            setIsPlaylistCont(false)
-            setTitleAlert(false)
-            axios
+        axios
             .post("http://localhost:8287/playlists", {
                 title: title,
                 description: description,
+                creator: user,
                 // creatorId: user.uid,
                 // isPrivate: false,
             })
             .then((res) => {
+                setTitle('')
+                setDescription('')
+                setIsPlaylistCont(false)
+                setTitleAlert(false)
                 console.log(res);
             })
             .catch((error) => {
                 console.log('errrorrrr')
                 console.log(error);
+                setTitleAlert(true)
             })
-        } else {
-            setTitleAlert(true)
-        }
     }
 
     return (
@@ -97,9 +100,11 @@ export const Home = () => {
                         <NavLink to="/" className={styles.mainBar}>Home</NavLink>
                     </p>
                     <p>
+                        <RiSearchLine/>
                         <NavLink to="/" className={styles.mainBar}>Search</NavLink>
                     </p>
                     <p>
+                        <BiLibrary/>
                         <NavLink to="/" className={styles.mainBar}>Your Library</NavLink>
                     </p>
                 </div>
@@ -112,22 +117,28 @@ export const Home = () => {
                     </p>
                 </div>
                 <div>
-                    {playlists && playlists.map((item, index) => {
+                    {user && playlists && playlists.map((item, index) => {
                         return <p key={index} className={styles.mainBar}>{item.title}</p>
                     })}
                 </div>
             </div>
             <div className={styles.cont}>
                 <div className={styles.header}>
-                    <div className={styles.backButton}> Back </div>
-                    <div className={styles.buttonsCont}>
-                        <NavLink to="/signup" className={styles.textButton}>Sign up</NavLink>
-                        <NavLink to="/login" className={styles.whiteButton}>Log in</NavLink>
-                    </div>
+                    {/* <div className={styles.backButton}> Back </div> */}
+                    {user ?
+                        <div className={styles.buttonsCont}>
+                            <div className={styles.whiteButton}>{user}</div>
+                        </div>
+                        :
+                        <div className={styles.buttonsCont}>
+                            <NavLink to="/signup" className={styles.textButton}>Sign up</NavLink>
+                            <NavLink to="/login" className={styles.whiteButton}>Log in</NavLink>
+                        </div>
+                    }
                 </div>
                 <div className={styles.mainCont}>
                     <div className={cp.contain} style={{ "display": isPlaylistCont ? "flex" : "none" }}>
-                        <AiOutlineCloseCircle className={cp.close} onClick={createPlaylistContainHandler}/>
+                        <AiOutlineCloseCircle className={cp.close} onClick={createPlaylistContainHandler} />
                         <p>Title</p>
                         <input
                             className={cp.input}

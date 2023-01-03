@@ -8,34 +8,28 @@ import axios from "axios";
 
 export const SignUp = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isComplete, setIsComplete] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        if (email && username && password.length >= 8) {
-            axios
-                .post("http://localhost:8287/users", {
-                    username: username,
-                    email: email,
-                    password: password,
-                    // creatorId: user.uid,
-                    // isPrivate: false,
-                })
-                .then((res) => {
-                    navigate("/login");
-                    console.log(res);
-                })
-                .catch((error) => {
-                    console.log('Something went wrong')
-                    console.log(error);
-                })
-        } else {
-            setIsComplete(true)
-        }
+        axios
+            .post("http://localhost:8287/users", {
+                email: email,
+                password: password,
+                // creatorId: user.uid,
+                // isPrivate: false,
+            })
+            .then((res) => {
+                navigate("/login");
+                console.log(res);
+            })
+            .catch((error) => {
+                setIsComplete(true)
+                console.log('Something went wrong')
+                console.log(error);
+            })
 
         // createUserWithEmailAndPassword(auth, email, password)
         //     .then((userCredential) => {
@@ -55,26 +49,9 @@ export const SignUp = () => {
     return (
         <main className={styles.page}>
             <div className={styles.contain}>
-                <div className={styles.spotify}>
-                    <img src={logo}></img>
-                    <h1> Sopoti5 </h1>
-                    <p>®</p>
-                </div>
+                <h1 className={styles.title}>Sign Up</h1>
                 {isComplete && <p className={styles.alert}>Something went wrong</p>}
                 <form>
-                    <div>
-                        <label htmlFor="username">Username</label>
-                        <input
-                            className={styles.input}
-                            type="text"
-                            label="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                            placeholder="Username"
-                        />
-                    </div>
-
                     <div>
                         <label htmlFor="email-address">Email address</label>
                         <input

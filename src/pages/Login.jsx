@@ -1,12 +1,14 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 import styles from "./styles/Login.module.css"
 import logo from "./images/spotify.png"
 import axios from "axios";
+import { ThemeContext } from "../providers/ThemeContext";
 
 export const Login = () => {
+    const { user, setUser } = useContext(ThemeContext)
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,8 +22,9 @@ export const Login = () => {
                 password: password,
             })
             .then((res) => {
+                setUser(email)
                 console.log(res);
-                // navigate("/");
+                navigate("/");
             })
             .catch((error) => {
                 console.log('Something went wrong')
@@ -47,11 +50,7 @@ export const Login = () => {
     return (
         <main className={styles.page}>
             <div className={styles.contain}>
-                <div className={styles.spotify}>
-                    <img src={logo}></img>
-                    <h1> Sopoti5 </h1>
-                    <p>®</p>
-                </div>
+                <h1 className={styles.title}>Log in</h1>
                 {isComplete && <p className={styles.alert}>Something went wrong</p>}
                 <form>
                     <div>
