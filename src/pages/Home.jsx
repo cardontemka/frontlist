@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase"
 import styles from './styles/Home.module.css'
+import cp from './styles/CreatePlaylist.module.css'
 import logo from "./images/spotify.png"
 import { AiFillHome, AiOutlineCloseCircle } from "react-icons/ai";
 import { BsPlusSquareFill } from "react-icons/bs";
@@ -17,18 +18,6 @@ export const Home = () => {
     const [description, setDescription] = useState('');
     const [playlists, setPlaylists] = useState([]);
     const navigate = useNavigate();
-
-    const handleLogout = () => {
-        signOut(auth)
-            .then(() => {
-                // Sign-out successful.
-                navigate('/');
-                console.log('Signed out successfully');
-            })
-            .catch((error) => {
-                // An error happened
-            })
-    }
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -44,8 +33,29 @@ export const Home = () => {
         })
     }, []);
 
+    useEffect(() => {
+        axios.get("http://localhost:8287/playlists")
+            .then(res => {
+                setPlaylists(res.data);
+            })
+    })
+
     const createPlaylistContainHandler = () => {
         setIsPlaylistCont(!isPlaylistCont)
+        setTitleAlert(false)
+    }
+
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                // Sign-out successful.
+                navigate('/');
+                console.log('Signed out successfully');
+            })
+            .catch((error) => {
+                console.log(error);
+                // An error happened
+            })
     }
 
     const createPlaylist = () => {
@@ -73,12 +83,6 @@ export const Home = () => {
         }
     }
 
-    useEffect(() => {
-        axios.get("http://localhost:8287/playlists")
-            .then(res => {
-                setPlaylists(res.data);
-            })
-    })
     return (
         <main>
             <div className={styles.menu}>
@@ -121,12 +125,12 @@ export const Home = () => {
                         <NavLink to="/login" className={styles.whiteButton}>Log in</NavLink>
                     </div>
                 </div>
-                <div className={styles.mainCont} style={{ "display": isPlaylistCont ? "flex" : "none" }}>
-                    <div className={styles.createPlaylistCont}>
-                        <AiOutlineCloseCircle className={styles.close} onClick={createPlaylistContainHandler}/>
+                <div className={styles.mainCont}>
+                    <div className={cp.contain} style={{ "display": isPlaylistCont ? "flex" : "none" }}>
+                        <AiOutlineCloseCircle className={cp.close} onClick={createPlaylistContainHandler}/>
                         <p>Title</p>
                         <input
-                            className={styles.createPlaylistInput}
+                            className={cp.input}
                             type="text"
                             label="Create title"
                             value={title}
@@ -134,17 +138,17 @@ export const Home = () => {
                             required
                             placeholder="You should give a cool title"
                         />
-                        {title.length == 0 && titleAlert && <div className={styles.alert}>Please enter a title!</div>}
+                        {!title && titleAlert && <div className={cp.alert}>Please enter a title!</div>}
                         <p>description</p>
                         <input
-                            className={styles.createPlaylistInput}
+                            className={cp.input}
                             type="text"
                             label="Give a description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="write something"
                         />
-                        <div className={styles.createPlaylistButton} onClick={createPlaylist}>Create</div>
+                        <div className={cp.createButton} onClick={createPlaylist}>Create</div>
                     </div>
                 </div>
             </div>

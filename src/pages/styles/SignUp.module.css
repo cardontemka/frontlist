@@ -1,0 +1,63 @@
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contain {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(40, 40, 40);
+    height: fit-content;
+    padding: 1% 2%;
+    border-radius: 30px;
+}
+
+.input {
+    border-radius: 30px;
+    background-color: white;
+    border: none;
+    width: 80%;
+    height: 30px;
+    padding: 0 3%;
+    color: black;
+    outline: none;
+    margin: 10px 0;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 5% 0 0 0;
+    background-color: rgb(50, 50, 50);
+    border-radius: 30px;
+}
+
+.button:hover {
+    opacity: 90%;
+    font-size: 105%;
+    cursor: pointer;
+}
+
+.spotify {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin: 0 0 10px;
+}
+
+.spotify img {
+    width: auto;
+    height: 100%;
+    margin: 0 10px 0 0;
+}
+
+.spotify p {
+    font-size: 10px;
+}
+
+.alert {
+    color: red;
+    font-weight: 400;
+    margin: 3px 0 0;
+}

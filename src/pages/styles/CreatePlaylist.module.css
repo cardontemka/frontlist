@@ -1,16 +1,15 @@
-.page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .contain {
-    display: flex;
     flex-direction: column;
-    background-color: rgb(40, 40, 40);
+    position: relative;
+    width: 30vw;
     height: fit-content;
-    padding: 1% 2%;
+    top: calc(50% - 17vw);
+    left: calc(50% - 17vw);
+    background-color: black;
     border-radius: 30px;
+    box-shadow: 0 0 20px 10px rgb(40, 40, 40);
+    align-items: center;
+    padding: 1vw 2vw;
 }
 
 .input {
@@ -22,42 +21,32 @@
     padding: 0 3%;
     color: black;
     outline: none;
-    margin: 10px 0;
 }
 
-.button {
+.createButton {
     padding: 10px 20px;
     margin: 5% 0 0 0;
     background-color: rgb(50, 50, 50);
     border-radius: 30px;
 }
 
-.button:hover {
+.createButton:hover {
     opacity: 90%;
     font-size: 105%;
     cursor: pointer;
-}
-
-.spotify {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    margin: 0 0 10px;
-}
-
-.spotify img {
-    width: auto;
-    height: 100%;
-    margin: 0 10px 0 0;
-}
-
-.spotify p {
-    font-size: 10px;
 }
 
 .alert {
     color: red;
     font-weight: 400;
     margin: 3px 0 0;
+}
+
+.close {
+    position: absolute;
+    left: 10px;
+}
+
+.close:hover {
+    opacity: 80%;
 }
