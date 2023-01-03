@@ -3,21 +3,19 @@ import { onAuthStateChanged, signOut } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase"
-<<<<<<< HEAD
-
-export const Home = () => {
-    const [user, setUser] = useState(null);
-=======
 import styles from './styles/Home.module.css'
 import logo from "./images/spotify.png"
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome, AiOutlineCloseCircle } from "react-icons/ai";
 import { BsPlusSquareFill } from "react-icons/bs";
 
 
 export const Home = () => {
     const [user, setUser] = useState(null);
     const [isPlaylistCont, setIsPlaylistCont] = useState(false);
->>>>>>> 93898978e1237ffb99a3d9b3f26329a73337d0c9
+    const [title, setTitle] = useState('');
+    const [titleAlert, setTitleAlert] = useState(false);
+    const [description, setDescription] = useState('');
+    const [playlists, setPlaylists] = useState([]);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -34,7 +32,6 @@ export const Home = () => {
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            console.log(user);
             if (user) {
                 setUser(user)
 
@@ -47,55 +44,41 @@ export const Home = () => {
         })
     }, []);
 
-<<<<<<< HEAD
-    const createPlaylist = () => {
-        axios
-            .post("http://localhost:8287/playlists", {
-                title: "uhtahdaa sonsdg duu",
-                description: "classic",
-=======
-    const createPlaylistContain = () => {
+    const createPlaylistContainHandler = () => {
         setIsPlaylistCont(!isPlaylistCont)
     }
 
     const createPlaylist = () => {
-        axios
+        if (title) {
+            setTitle('')
+            setDescription('')
+            setIsPlaylistCont(false)
+            setTitleAlert(false)
+            axios
             .post("http://localhost:8287/playlists", {
-                title: "",
-                description: "fgdfgfhghjhfgfdhfjkjhgffghfgj",
->>>>>>> 93898978e1237ffb99a3d9b3f26329a73337d0c9
-                creatorId: user.uid,
-                isPrivate: false,
+                title: title,
+                description: description,
+                // creatorId: user.uid,
+                // isPrivate: false,
             })
             .then((res) => {
-<<<<<<< HEAD
-                console.log('err')
-                console.log(res);
-            })
-    }
-    return (
-        <div>
-            <h1> Welcome to Home page </h1>
-            {user && <p>{user.email}</p>}
-            <div>
-                <button onClick={handleLogout}>Log out</button>
-                <button onClick={createPlaylist}>Create Playlist</button>
-            </div>
-            <button>
-                <NavLink to="/signup">Sign up</NavLink>
-            </button>
-            <button>
-                <NavLink to="/login">Log in</NavLink>
-            </button>
-        </div>
-=======
                 console.log(res);
             })
             .catch((error) => {
                 console.log('errrorrrr')
                 console.log(error);
             })
+        } else {
+            setTitleAlert(true)
+        }
     }
+
+    useEffect(() => {
+        axios.get("http://localhost:8287/playlists")
+            .then(res => {
+                setPlaylists(res.data);
+            })
+    })
     return (
         <main>
             <div className={styles.menu}>
@@ -117,16 +100,18 @@ export const Home = () => {
                     </p>
                 </div>
                 <div>
-                    <p onClick={createPlaylistContain}>
-                        <BsPlusSquareFill/>
+                    <p onClick={createPlaylistContainHandler}>
+                        <BsPlusSquareFill />
                         <span className={styles.mainBar}>
-                        Create Playlist
+                            Create Playlist
                         </span>
                     </p>
                 </div>
-                {/* <div>
-                    {}
-                </div> */}
+                <div>
+                    {playlists && playlists.map((item, index) => {
+                        return <p key={index} className={styles.mainBar}>{item.title}</p>
+                    })}
+                </div>
             </div>
             <div className={styles.cont}>
                 <div className={styles.header}>
@@ -136,13 +121,30 @@ export const Home = () => {
                         <NavLink to="/login" className={styles.whiteButton}>Log in</NavLink>
                     </div>
                 </div>
-                <div className={styles.mainCont} style={{"display": isPlaylistCont ? "flex" : "none"}}>
+                <div className={styles.mainCont} style={{ "display": isPlaylistCont ? "flex" : "none" }}>
                     <div className={styles.createPlaylistCont}>
+                        <AiOutlineCloseCircle className={styles.close} onClick={createPlaylistContainHandler}/>
                         <p>Title</p>
-                        <input className={styles.createPlaylistInput}/>
-                        <p>discription</p>
-                        <input className={styles.createPlaylistInput}/>
-                        <p className={styles.createPlaylistButton}>Create</p>
+                        <input
+                            className={styles.createPlaylistInput}
+                            type="text"
+                            label="Create title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                            placeholder="You should give a cool title"
+                        />
+                        {title.length == 0 && titleAlert && <div className={styles.alert}>Please enter a title!</div>}
+                        <p>description</p>
+                        <input
+                            className={styles.createPlaylistInput}
+                            type="text"
+                            label="Give a description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder="write something"
+                        />
+                        <div className={styles.createPlaylistButton} onClick={createPlaylist}>Create</div>
                     </div>
                 </div>
             </div>
@@ -160,6 +162,5 @@ export const Home = () => {
                 </button>
             </div> */}
         </main>
->>>>>>> 93898978e1237ffb99a3d9b3f26329a73337d0c9
     )
 }
