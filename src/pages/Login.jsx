@@ -8,7 +8,7 @@ import axios from "axios";
 import { ThemeContext } from "../providers/ThemeContext";
 
 export const Login = () => {
-    const { user, setUser } = useContext(ThemeContext)
+    // const { user, setUser } = useContext(ThemeContext)
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,7 +22,9 @@ export const Login = () => {
                 password: password,
             })
             .then((res) => {
-                setUser(email)
+                window.localStorage.setItem('userEmail', email)
+                window.localStorage.setItem('userId', res.data._id)
+                // setUser({email: email, id: res.data.id})
                 console.log(res);
                 navigate("/");
             })

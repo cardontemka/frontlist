@@ -13,8 +13,7 @@ import { RiSearchLine } from "react-icons/ri";
 import { ThemeContext } from "../providers/ThemeContext";
 
 export const Home = () => {
-    const { user } = useContext(ThemeContext);
-    // const [user, setUser] = useState(null);
+    const { user, setUser } = useContext(ThemeContext);
     const [isPlaylistCont, setIsPlaylistCont] = useState(false);
     const [title, setTitle] = useState('');
     const [titleAlert, setTitleAlert] = useState(false);
@@ -22,24 +21,14 @@ export const Home = () => {
     const [playlists, setPlaylists] = useState([]);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    // onAuthStateChanged(auth, (user) => {
-    //     if (user) {
-    //         setUser(user)
-
-    //         const uid = user.uid;
-    //         console.log(uid);
-    //     } else {
-    //         setUser(null)
-    //         console.log('user is logged out');
-    //     }
-    // })
-    // }, []);
+    useEffect(() => {
+        setUser({ email: localStorage.getItem('userEmail'), id: localStorage.getItem('userId') });
+    }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8287/playlists")
+        axios.get(`http://localhost:8287/user/${user.id}`)
             .then(res => {
-                setPlaylists(res.data);
+                setPlaylists(res.data.playlists);
             })
     })
 
@@ -87,7 +76,7 @@ export const Home = () => {
     }
 
     return (
-        <main>
+        <main>{console.log(user)}
             <div className={styles.menu}>
                 <div className={styles.spotify}>
                     <img src={logo}></img>
@@ -100,11 +89,11 @@ export const Home = () => {
                         <NavLink to="/" className={styles.mainBar}>Home</NavLink>
                     </p>
                     <p>
-                        <RiSearchLine/>
+                        <RiSearchLine />
                         <NavLink to="/" className={styles.mainBar}>Search</NavLink>
                     </p>
                     <p>
-                        <BiLibrary/>
+                        <BiLibrary />
                         <NavLink to="/" className={styles.mainBar}>Your Library</NavLink>
                     </p>
                 </div>
@@ -117,7 +106,7 @@ export const Home = () => {
                     </p>
                 </div>
                 <div>
-                    {user && playlists && playlists.map((item, index) => {
+                    {playlists && playlists.map((item, index) => {
                         return <p key={index} className={styles.mainBar}>{item.title}</p>
                     })}
                 </div>
@@ -125,9 +114,9 @@ export const Home = () => {
             <div className={styles.cont}>
                 <div className={styles.header}>
                     {/* <div className={styles.backButton}> Back </div> */}
-                    {user ?
+                    {user.email ?
                         <div className={styles.buttonsCont}>
-                            <div className={styles.whiteButton}>{user}</div>
+                            <div className={styles.whiteButton}>{user.email}</div>
                         </div>
                         :
                         <div className={styles.buttonsCont}>
@@ -137,30 +126,32 @@ export const Home = () => {
                     }
                 </div>
                 <div className={styles.mainCont}>
-                    <div className={cp.contain} style={{ "display": isPlaylistCont ? "flex" : "none" }}>
-                        <AiOutlineCloseCircle className={cp.close} onClick={createPlaylistContainHandler} />
-                        <p>Title</p>
-                        <input
-                            className={cp.input}
-                            type="text"
-                            label="Create title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
-                            placeholder="You should give a cool title"
-                        />
-                        {!title && titleAlert && <div className={cp.alert}>Please enter a title!</div>}
-                        <p>description</p>
-                        <input
-                            className={cp.input}
-                            type="text"
-                            label="Give a description"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            placeholder="write something"
-                        />
-                        <div className={cp.createButton} onClick={createPlaylist}>Create</div>
-                    </div>
+                    {isPlaylistCont &&
+                        <div className={cp.contain}>
+                            <AiOutlineCloseCircle className={cp.close} onClick={createPlaylistContainHandler} />
+                            <p>Title</p>
+                            <input
+                                className={cp.input}
+                                type="text"
+                                label="Create title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                required
+                                placeholder="You should give a cool title"
+                            />
+                            {!title && titleAlert && <div className={cp.alert}>Please enter a title!</div>}
+                            <p>description</p>
+                            <input
+                                className={cp.input}
+                                type="text"
+                                label="Give a description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder="write something"
+                            />
+                            <div className={cp.createButton} onClick={createPlaylist}>Create</div>
+                        </div>
+                    }
                 </div>
             </div>
             {/* <div>
