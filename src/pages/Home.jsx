@@ -26,11 +26,12 @@ export const Home = () => {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:8287/user/${user.id}`)
+        axios.get(`http://localhost:8287/playlists`)
             .then(res => {
-                setPlaylists(res.data.playlists);
+                setPlaylists(res.data);
             })
-    })
+            console.log('playlist')
+    }, [isPlaylistCont])
 
     const createPlaylistContainHandler = () => {
         if (user) {
@@ -57,7 +58,7 @@ export const Home = () => {
             .post("http://localhost:8287/playlists", {
                 title: title,
                 description: description,
-                creator: user,
+                creator: user.id,
                 // creatorId: user.uid,
                 // isPrivate: false,
             })
@@ -76,7 +77,7 @@ export const Home = () => {
     }
 
     return (
-        <main>{console.log(user)}
+        <main>
             <div className={styles.menu}>
                 <div className={styles.spotify}>
                     <img src={logo}></img>
@@ -107,14 +108,16 @@ export const Home = () => {
                 </div>
                 <div>
                     {playlists && playlists.map((item, index) => {
-                        return <p key={index} className={styles.mainBar}>{item.title}</p>
+                        if (item.creator == user.id) {
+                            return <p key={index} className={styles.mainBar}>{item.title}</p>
+                        }
                     })}
                 </div>
             </div>
             <div className={styles.cont}>
                 <div className={styles.header}>
                     {/* <div className={styles.backButton}> Back </div> */}
-                    {user.email ?
+                    {user.id ?
                         <div className={styles.buttonsCont}>
                             <div className={styles.whiteButton}>{user.email}</div>
                         </div>
