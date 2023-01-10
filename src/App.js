@@ -1,6 +1,7 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter, BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-import { Home, SignUp, Login } from "./pages";
+import { Home, SignUp, Login, Playlist, Header } from "./pages";
+import { HomePage } from "./pages/HomePage";
 import { ThemeProvider } from "./providers/ThemeContext";
 
 function App() {
@@ -11,7 +12,10 @@ function App() {
           <div>
             <section>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home />} >
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="playlist/:id" element={<Playlist />} />
+                </Route>
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
               </Routes>

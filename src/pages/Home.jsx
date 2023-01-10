@@ -1,7 +1,7 @@
 import axios from "axios";
 import { onAuthStateChanged, signOut } from "firebase/auth"
 import { useContext, useEffect, useState } from "react"
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase"
 import styles from './styles/Home.module.css'
 import cp from './styles/CreatePlaylist.module.css'
@@ -11,6 +11,7 @@ import { BsPlusSquareFill } from "react-icons/bs";
 import { BiLibrary } from "react-icons/bi";
 import { RiSearchLine } from "react-icons/ri";
 import { ThemeContext } from "../providers/ThemeContext";
+import { Header } from "./Header";
 
 export const Home = () => {
     const { user, setUser } = useContext(ThemeContext);
@@ -19,7 +20,6 @@ export const Home = () => {
     const [titleAlert, setTitleAlert] = useState(false);
     const [description, setDescription] = useState('');
     const [playlists, setPlaylists] = useState([]);
-    const navigate = useNavigate();
 
     useEffect(() => {
         setUser({ email: localStorage.getItem('userEmail'), id: localStorage.getItem('userId') });
@@ -30,7 +30,6 @@ export const Home = () => {
             .then(res => {
                 setPlaylists(res.data);
             })
-            console.log('playlist')
     }, [isPlaylistCont])
 
     const createPlaylistContainHandler = () => {
@@ -38,20 +37,7 @@ export const Home = () => {
             setIsPlaylistCont(!isPlaylistCont)
             setTitleAlert(false)
         }
-    }
-
-    const handleLogout = () => {
-        signOut(auth)
-            .then(() => {
-                // Sign-out successful.
-                navigate('/');
-                console.log('Signed out successfully');
-            })
-            .catch((error) => {
-                console.log(error);
-                // An error happened
-            })
-    }
+    } 
 
     const createPlaylist = () => {
         axios
@@ -109,17 +95,16 @@ export const Home = () => {
                 <div>
                     {playlists && playlists.map((item, index) => {
                         if (item.creator == user.id) {
-                            return <p key={index} className={styles.mainBar}>{item.title}</p>
+                            return <p key={index}><NavLink to={`/playlist/${item._id}`} className={styles.mainBar}>{item.title}</NavLink></p>
                         }
                     })}
                 </div>
             </div>
-            <div className={styles.cont}>
+            {/* <div className={styles.cont}>
                 <div className={styles.header}>
-                    {/* <div className={styles.backButton}> Back </div> */}
                     {user.id ?
                         <div className={styles.buttonsCont}>
-                            <div className={styles.whiteButton}>{user.email}</div>
+                            <div className={styles.whiteButton} onClick={handleLogout} >{isLog ? 'Log out' : user.email}</div>
                         </div>
                         :
                         <div className={styles.buttonsCont}>
@@ -156,7 +141,7 @@ export const Home = () => {
                         </div>
                     }
                 </div>
-            </div>
+            </div> */}
             {/* <div>
                 {user && <p>{user.email}</p>}
                 <div>
@@ -170,6 +155,7 @@ export const Home = () => {
                     <NavLink to="/login">Log in</NavLink>
                 </button>
             </div> */}
+            <Outlet />
         </main>
     )
 }
