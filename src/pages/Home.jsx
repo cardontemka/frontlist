@@ -109,7 +109,7 @@ export const Home = () => {
                 <div>
                     {playlists && playlists.map((item, index) => {
                         if (item.creator == user.id) {
-                            return <p key={index} className={styles.mainBar}>{item.title}</p>
+                            return <p key={index}><NavLink to={'/playlist/' } className={styles.mainBar}>{item.title}</NavLink></p>
                         }
                     })}
                 </div>
