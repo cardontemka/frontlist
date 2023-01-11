@@ -1,27 +1,27 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter, BrowserRouter as Router} from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-import { Home, SignUp, Login, Playlist } from "./pages";
+import { SignUp, Login, Playlist, Header, Menu, Home } from "./pages";
 import { ThemeProvider } from "./providers/ThemeContext";
+import styles from './App.module.css'
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="App">
+      <div className={styles.App}>
         <Router>
-          <div>
-            <section>
-              <Routes>
-                <>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/playlist" element={<Playlist />} />
-                  {/* <Route path="" element={< />} /> */}
-                  {/* <Route path="" element={< />} /> */}
-                </>
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/login" element={<Login />} />
-              </Routes>
-            </section>
+          <Menu />
+          <div className={styles.contain}>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/playlist/:id" element={<Playlist />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              {/* <Route path="*" element={<Home />} /> */}
+            </Routes>
           </div>
+          <Routes>
+          </Routes>
         </Router>
       </div>
     </ThemeProvider>

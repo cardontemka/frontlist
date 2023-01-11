@@ -1,4 +1,6 @@
-export * from './Home'
+export * from './Menu'
 export * from './Login'
 export * from './SignUp'
 export * from './Playlist'
+export * from './Header'
+export * from './Home'

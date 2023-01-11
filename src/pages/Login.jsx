@@ -1,9 +1,9 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+// import { signInWithEmailAndPassword } from "firebase/auth";
 import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { auth } from "../config/firebase";
+// import { auth } from "../config/firebase";
 import styles from "./styles/Login.module.css"
-import logo from "./images/spotify.png"
+// import logo from "./images/spotify.png"
 import axios from "axios";
 import { ThemeContext } from "../providers/ThemeContext";
 

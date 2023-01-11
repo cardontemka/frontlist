@@ -1,5 +1,130 @@
 .contain {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: green;
+    background-color: rgb(30, 30, 30);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    background-color: rgb(50, 50, 50);
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+    background-color: rgb(35, 35, 35);
+    margin: 2vw;
+    box-shadow: 5px 5px 20px 2px rgb(20, 20, 20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 300%;
+}
+
+.textCont {
+    margin: 80px 0 0 0;
+}
+
+.title {
+    font-size: 50px;
+    margin: 0;
+    text-justify: inter-word;
+}
+
+.text {
+    margin: 0;
+    font-size: 12px;
+}
+
+.songsCont {
+    display: flex;
+    flex-direction: column;
+    padding: 0 2vw;
+}
+
+.menuButton {
+    font-size: 40px;
+    color: gray;
+    font-weight: 500;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 270px;
+    width: 100px;
+    height: fit-content;
+    flex-direction: column;
+}
+
+.menuBar {
+    height: auto;
+    width: 100%;
+    color: white;
+    background-color: rgb(46, 46, 46);
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+}
+
+.menuBar:hover {
+    background-color: rgb(61, 61, 61);
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(60, 60, 60);
+    margin: 20px 0;
+}
+
+.titles {
+    display: flex;
+    flex-direction: row;
+}
+
+.songTitle {
+    font-weight: 400;
+    font-size: 14px;
+    color: gray;
+    margin: 0;
+}
+
+.songName {
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+    margin: 0 0 5px;
+}
+
+.songImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(100, 100, 100);
+}
+
+.song {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    width: 100%;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.song:hover {
+    background-color: rgb(61, 61, 61);
+}
+
+.songNameAndArtist {
+    width: 40%;
 }

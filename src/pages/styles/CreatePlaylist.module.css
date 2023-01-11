@@ -1,51 +1,109 @@
 .contain {
     display: flex;
     flex-direction: column;
-    position: relative;
-    width: 30vw;
+    position: absolute;
+    width: 450px;
     height: fit-content;
-    top: calc(50% - 17vw);
-    left: calc(50% - 17vw);
-    background-color: black;
-    border-radius: 30px;
-    box-shadow: 0 0 20px 10px rgb(40, 40, 40);
-    align-items: center;
+    top: calc(50% - 225px);
+    left: calc(50% - 225px);
+    background-color: rgb(41, 41, 41);
+    border-radius: 10px;
     padding: 1vw 2vw;
+    box-shadow: 0 0 100px 100vw rgba(0, 0, 0, 0.5);
 }
 
-.input {
+.inputTitle {
+    border-radius: 3px;
+    background-color: rgb(70, 70, 70);
+    border: none;
+    height: 40px;
+    padding: 0 3%;
+    color: white;
+    outline: none;
+    margin: 0 0 20px;
+}
+.inputDescription {
+    border-radius: 3px;
+    background-color: rgb(70, 70, 70);
+    border: none;
+    height: 100px;
+    padding: 3% 3%;
+    color: white;
+    outline: none;
+    margin: 0 0 20px;
+    word-wrap: break-word;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.image {
+    width: 180px;
+    height: 180px;
+    background-color: rgb(35, 35, 35);
+    box-shadow: 5px 5px 20px 2px rgb(20, 20, 20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 300%;
+    margin: 0 20px 0 0;
+}
+
+.inputsCont {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.text {
+    font-size: 10px;
+}
+
+.saveButton {
+    width: fit-content;
     border-radius: 30px;
     background-color: white;
-    border: none;
-    width: 80%;
-    height: 30px;
-    padding: 0 3%;
+    margin: 0 10px;
+    padding: 15px 30px;
     color: black;
-    outline: none;
+    font-size: 100%;
+    cursor: pointer;
+    margin: 0 0 0 78%;
 }
 
-.createButton {
-    padding: 10px 20px;
-    margin: 5% 0 0 0;
-    background-color: rgb(50, 50, 50);
-    border-radius: 30px;
-}
-
-.createButton:hover {
+.saveButton:hover {
     opacity: 90%;
     font-size: 105%;
-    cursor: pointer;
 }
 
 .alert {
-    color: red;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(214, 34, 49);
+    color: white;
     font-weight: 400;
     margin: 3px 0 0;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+.alertIcon {
+    color: white;
+    margin: 0 10px;
+    font-size: 15px;
 }
 
 .close {
     position: absolute;
-    left: 10px;
+    color: gray;
+    right: 10px;
 }
 
 .close:hover {

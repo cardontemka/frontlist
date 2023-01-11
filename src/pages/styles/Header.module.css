@@ -1,0 +1,64 @@
+.header {
+    width: 100%;
+    height: 70px;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    background-color: black;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.buttonsCont {
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.whiteButton {
+    width: auto;
+    border-radius: 30px;
+    background-color: white;
+    margin: 0 10px;
+    padding: 15px 30px;
+    color: black;
+    font-size: 100%;
+}
+
+.textButton {
+    margin: 0 10px;
+    color: white;
+    opacity: 70%;
+    font-size: 100%;
+}
+
+.grayButton {
+    display: flex;
+    align-items: center;
+    width: auto;
+    border-radius: 30px;
+    background-color: rgb(30, 30, 30);
+    padding: 5px 10px;
+    margin: 0 10px;
+}
+
+.whiteButton:hover {
+    opacity: 90%;
+    font-size: 105%;
+}
+
+.textButton:hover {
+    opacity: 100%;
+    font-size: 105%;
+}
+
+.arrow {
+    font-size: 200%;
+    margin: 0 5px;
+}

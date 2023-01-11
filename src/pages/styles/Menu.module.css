@@ -1,0 +1,48 @@
+.menu {
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    background-color: black;
+}
+
+.spotify {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    margin: 0 0 10px;
+}
+
+.spotify img {
+    width: auto;
+    height: 100%;
+    margin: 0 10px 0 0;
+}
+
+.spotify p {
+    font-size: 10px;
+}
+
+.spotify h1 {
+    font-size: 25px;
+}
+
+.mainBar {
+    font-size: 90%;
+    opacity: 80%;
+    cursor: pointer;
+    margin: 0 0 0 10px;
+}
+
+.mainBar:hover {
+    opacity: 100%;
+}
+
+.mainCont {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
