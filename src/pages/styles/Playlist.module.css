@@ -42,6 +42,7 @@
 
 .songsCont {
     display: flex;
+    position: relative;
     flex-direction: column;
     padding: 0 2vw;
 }
@@ -56,8 +57,7 @@
 
 .menu {
     position: absolute;
-    top: 50%;
-    left: 270px;
+    top: 100px;
     width: 100px;
     height: fit-content;
     flex-direction: column;
@@ -127,4 +127,9 @@
 
 .songNameAndArtist {
     width: 40%;
+}
+
+.image {
+    height: 100%;
+    width: 100%;
 }

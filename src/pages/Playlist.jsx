@@ -9,10 +9,10 @@ import { MdOutlineClose } from "react-icons/md";
 import { ThemeContext } from '../providers/ThemeContext';
 
 export const Playlist = () => {
-    const { user, setUser } = useContext(ThemeContext);
+    const { isPlaylistMenu, setIsPlaylistMenu, noMenus } = useContext(ThemeContext);
     const { id } = useParams()
-    const [isMenu, setIsMenu] = useState(false)
     const [playlist, setPlaylist] = useState({})
+    // const [isPlaylistMenu, setIsPlaylistMenu] = useState(false)
     const [songs, setSong] = useState([])
     const [isPlaylistCont, setIsPlaylistCont] = useState(false)
     const [titleAlert, setTitleAlert] = useState(false)
@@ -34,13 +34,7 @@ export const Playlist = () => {
     }, [id])
 
     const menuContain = () => {
-        setIsMenu(props => !props);
-    }
-
-    const noMenuCont = () => {
-        if (isMenu) {
-            setIsMenu(false);
-        }
+        setIsPlaylistMenu(props => !props);
     }
 
     const editPlaylistContainHandler = () => {
@@ -79,7 +73,7 @@ export const Playlist = () => {
             })
     }
     return (
-        <div className={styles.contain} onClick={noMenuCont}>
+        <div className={styles.contain} onClick={noMenus}>
             <div className={styles.header}>
                 <div className={styles.avatar}>
                     <IoMusicalNotesOutline />
@@ -93,7 +87,7 @@ export const Playlist = () => {
             </div>
             <div className={styles.songsCont}>
                 <p className={styles.menuButton} onClick={menuContain}>...</p>
-                <div className={styles.menu} style={{ display: isMenu ? "flex" : "none" }}>
+                <div className={styles.menu} style={{ display: isPlaylistMenu ? "flex" : "none" }}>
                     <div className={styles.menuBar} onClick={editPlaylistContainHandler}>Edit details</div>
                     <div className={styles.menuBar} onClick={deletePlaylist}>Delete</div>
                 </div>
@@ -108,12 +102,11 @@ export const Playlist = () => {
                 {songs.map((song, index) => {
                     return (
                         <div key={index} className={styles.song}>
-                            {console.log(song.artist)}
                             <span className={styles.songTitle} style={{ marginLeft: "1%", width: "3%" }}>{index + 1}</span>
-                            <div className={styles.songImage} >{song.image ? <img src={song.artist[0].image} /> : <span>?</span>}</div>
+                            <div className={styles.songImage} >{song.image ? song.image : song.artist[0].image ? <img src={song.artist[0].image} className={styles.image}/> : <span>?</span>}</div>
                             <div className={styles.songNameAndArtist}>
                                 <p className={styles.songName} style={{ marginLeft: "2%" }}>{song.name}</p>
-                                <p className={styles.songTitle} style={{ marginLeft: "2%" }}>{song.artist}</p>
+                                <p className={styles.songTitle} style={{ marginLeft: "2%" }}>{song.artist[0].name}</p>
                             </div>
                             <span className={styles.songTitle} style={{ width: "24%" }}>{song.album ? song.album : 'No Album'}</span>
                             <span className={styles.songTitle} style={{ width: "30%" }}>{song.createdAt}</span>

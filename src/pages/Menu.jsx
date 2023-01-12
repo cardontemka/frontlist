@@ -16,7 +16,7 @@ import { IoMusicalNotesOutline } from "react-icons/io5";
 import { FiAlertCircle } from "react-icons/fi";
 
 export const Menu = () => {
-    const { user, setUser } = useContext(ThemeContext);
+    const { user, setUser, noMenus } = useContext(ThemeContext);
     const [isPlaylistCont, setIsPlaylistCont] = useState(false);
     const [titleAlert, setTitleAlert] = useState(false);
     const [title, setTitle] = useState('');
@@ -32,6 +32,7 @@ export const Menu = () => {
         axios.get(`http://localhost:8287/playlists`)
             .then(res => {
                 setPlaylists(res.data);
+                console.log(user)
             })
     }, [isPlaylistCont])
 
@@ -64,7 +65,7 @@ export const Menu = () => {
     }
 
     return (
-        <div className={styles.menu} style={{ display: location.pathname === '/login' ? "none" : location.pathname === '/signup' ? "none" : "flex" }}>
+        <div className={styles.menu} style={{ display: location.pathname === '/login' ? "none" : location.pathname === '/signup' ? "none" : "flex" }} onClick={noMenus}>
             <div className={styles.spotify}>
                 <img src={logo}></img>
                 <h1> Sopoti5 </h1>
@@ -104,9 +105,9 @@ export const Menu = () => {
                     <MdOutlineClose className={cp.close} onClick={createPlaylistContainHandler} />
                     <p>Edit Details</p>
                     {!title && titleAlert && <div className={cp.alert}>
-                        <FiAlertCircle className={cp.alertIcon}/>
+                        <FiAlertCircle className={cp.alertIcon} />
                         Playlist name is required.
-                        </div>}
+                    </div>}
                     <div className={cp.inputsCont}>
                         <div className={cp.image}><IoMusicalNotesOutline /></div>
                         <div className={cp.inputs}>

@@ -28,16 +28,18 @@ export const Home = () => {
     return (
         <div className={styles.contain}>
             <h1>Good evening</h1>
-            <div>
+            <div className={styles.scrollCont}>
                 {artists.map((art, index) => {
                     return (
-                        <div key={index}>
-                            {art.name}
+                        <div key={index} className={styles.oneItemCont}>
+                            <img src={art.image} className={styles.artistImage}/>
+                            <p className={styles.itemName}>{art.name}</p>
+                            <p className={styles.itemVal}>Artist</p>
                         </div>
                     )
                 })}
             </div>
-            <div>
+            {/* <div>
                 {songs.map((song, index) => {
                     return (
                         <div key={index}>
@@ -45,7 +47,7 @@ export const Home = () => {
                         </div>
                     )
                 })}
-            </div>
+            </div> */}
         </div>
     )
 }
