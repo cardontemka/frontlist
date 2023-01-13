@@ -1,7 +1,7 @@
 * {
   color: white;
   font-weight: 700;
-  transition: 200ms;
+  transition: 150ms ease-in;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
    -khtml-user-select: none; /* Konqueror HTML */

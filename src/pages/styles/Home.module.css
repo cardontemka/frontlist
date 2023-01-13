@@ -5,6 +5,7 @@
     height: 100%;
     background-color: rgb(20, 20, 20);
     padding: 0 2%;
+    overflow-y: scroll;
 }
 
 .scrollCont {
@@ -22,6 +23,10 @@
     flex-direction: column;
     border-radius: 10px;
     margin: 0 30px 30px 0;
+}
+
+.oneItemCont:hover {
+    background-color: rgb(50, 50, 50);
 }
 
 .artistImage {

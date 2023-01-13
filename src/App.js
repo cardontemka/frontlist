@@ -1,6 +1,6 @@
-import { BrowserRouter, BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-import { SignUp, Login, Playlist, Header, Menu, Home } from "./pages";
+import { SignUp, Login, Playlist, Header, Menu, Home, Artist } from "./pages";
 import { ThemeProvider } from "./providers/ThemeContext";
 import styles from './App.module.css'
 
@@ -15,6 +15,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/playlist/:id" element={<Playlist />} />
+              <Route path="/artist/:id" element={<Artist />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               {/* <Route path="*" element={<Home />} /> */}
