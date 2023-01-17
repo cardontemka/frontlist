@@ -15,7 +15,7 @@ export const SignUp = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         axios
-            .post("http://localhost:8287/users", {
+            .post("https://backend-akf7.onrender.com/users", {
                 email: email,
                 password: password,
                 // creatorId: user.uid,

@@ -8,7 +8,7 @@ import axios from "axios";
 import { ThemeContext } from "../providers/ThemeContext";
 
 export const Login = () => {
-    // const { user, setUser } = useContext(ThemeContext)
+    const { user, setUser } = useContext(ThemeContext)
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,14 +17,14 @@ export const Login = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         axios
-            .post("http://localhost:8287/login", {
+            .post("https://backend-akf7.onrender.com/login", {
                 email: email,
                 password: password,
             })
             .then((res) => {
                 window.localStorage.setItem('userEmail', email)
                 window.localStorage.setItem('userId', res.data._id)
-                // setUser({email: email, id: res.data.id})
+                setUser({email: email, id: res.data.id})
                 console.log(res);
                 navigate("/");
             })

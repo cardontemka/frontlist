@@ -8,7 +8,7 @@ export const Home = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8287/artists')
+        axios.get('https://backend-akf7.onrender.com/artists')
             .then((res) => {
                 setArtists(res.data);
             })
@@ -18,7 +18,7 @@ export const Home = () => {
     }, [artists])
 
     useEffect(() => {
-        axios.get('http://localhost:8287/songs')
+        axios.get('https://backend-akf7.onrender.com/songs')
             .then((res) => {
                 setSongs(res.data);
             })

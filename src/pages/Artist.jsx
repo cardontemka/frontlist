@@ -1,4 +1,3 @@
-import { map } from "@firebase/util";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,7 +15,7 @@ export const Artist = () => {
     let listNumb = 0
 
     useEffect(() => {
-        axios.get(`http://localhost:8287/artists/${id}`)
+        axios.get(`https://backend-akf7.onrender.com/artists/${id}`)
             .then(res => {
                 setArtist(res.data);
                 // setSongs(res.data.songs);
@@ -24,11 +23,11 @@ export const Artist = () => {
             .catch((error) => {
                 navigate(-1);
             })
-        axios.get('http://localhost:8287/songs')
+        axios.get('https://backend-akf7.onrender.com/songs')
             .then(res => {
                 setSongs(res.data)
             })
-        axios.get('http://localhost:8287/playlists')
+        axios.get('https://backend-akf7.onrender.com/playlists')
             .then(res => {
                 setPlaylists(res.data)
             })
@@ -40,7 +39,7 @@ export const Artist = () => {
     }
 
     const addSongToPlaylist = (playlistId) => {
-        axios.put(`http://localhost:8287/playlists/${playlistId}`, {
+        axios.put(`https://backend-akf7.onrender.com/playlists/${playlistId}`, {
             id: songId,
         })
             .then(res => {
@@ -57,11 +56,6 @@ export const Artist = () => {
             </div>
             <div className={styles.songsCont}>
                 <p className={styles.menuButton} onClick={menuContain}>...</p>
-                {/* <div className={styles.menu} style={{ display: isPlaylistMenu ? "flex" : "none" }}>
-                    <div className={styles.menuBar} onClick={editPlaylistContainHandler}>Edit details</div>
-                    <div className={styles.menuBar} onClick={deletePlaylist}>Delete</div>
-                </div> */}
-                {/* <div className={styles.line}></div> */}
                 {songs.map(song => {
                     if (song.artist[0]._id == id) {
                         listNumb++

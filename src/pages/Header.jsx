@@ -12,7 +12,7 @@ export const Header = () => {
 
     useEffect(() => {
         setUser({ email: localStorage.getItem('userEmail'), id: localStorage.getItem('userId') });
-    }, []);
+    }, [user.id]);
 
     const menuContain = () => {
         setIsAccountMenu(!isAccountMenu);
@@ -22,6 +22,7 @@ export const Header = () => {
         setUser({});
         localStorage.removeItem('userEmail')
         localStorage.removeItem('userId')
+        // setUser()
         navigate("/");
         // signOut(auth)
         //     .then(() => {

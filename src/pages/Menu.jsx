@@ -26,10 +26,10 @@ export const Menu = () => {
 
     useEffect(() => {
         setUser({ email: localStorage.getItem('userEmail'), id: localStorage.getItem('userId') });
-    }, []);
+    }, [user.id]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8287/playlists`)
+        axios.get(`https://backend-akf7.onrender.com/playlists`)
             .then(res => {
                 setPlaylists(res.data);
                 console.log(user)
@@ -37,7 +37,7 @@ export const Menu = () => {
     }, [isPlaylistCont])
 
     const createPlaylistContainHandler = () => {
-        if (user) {
+        if (user.id) {
             setIsPlaylistCont(!isPlaylistCont)
             setTitleAlert(false)
         }
@@ -45,7 +45,7 @@ export const Menu = () => {
 
     const createPlaylist = () => {
         axios
-            .post("http://localhost:8287/playlists", {
+            .post("https://backend-akf7.onrender.com/playlists", {
                 title: title,
                 description: description,
                 creator: user.id,
@@ -94,7 +94,7 @@ export const Menu = () => {
                 </p>
             </div>
             <div>
-                {playlists && playlists.map((item, index) => {
+                {user.id && playlists && playlists.map((item, index) => {
                     if (item.creator == user.id) {
                         return <p key={index}><NavLink to={`/playlist/${item._id}`} className={styles.mainBar}>{item.title}</NavLink></p>
                     }
@@ -137,35 +137,6 @@ export const Menu = () => {
                 </div>
             }
             <Outlet />
-            {/* <div className={styles.cont}>
-                    <div className={styles.header}>
-                        {user.id ?
-                            <div className={styles.buttonsCont}>
-                                <div className={styles.whiteButton} onClick={handleLogout} >{isLog ? 'Log out' : user.email}</div>
-                            </div>
-                            :
-                            <div className={styles.buttonsCont}>
-                                <NavLink to="/signup" className={styles.textButton}>Sign up</NavLink>
-                                <NavLink to="/login" className={styles.whiteButton}>Log in</NavLink>
-                            </div>
-                        }
-                    </div>
-                    <div className={styles.mainCont}>
-                    </div>
-                </div> */}
-            {/* <div>
-                    {user && <p>{user.email}</p>}
-                    <div>
-                        <button onClick={handleLogout}>Log out</button>
-                        <button onClick={createPlaylist}>Create Playlist</button>
-                    </div>
-                    <button>
-                        <NavLink to="/signup">Sign up</NavLink>
-                    </button>
-                    <button>
-                        <NavLink to="/login">Log in</NavLink>
-                    </button>
-                </div> */}
         </div>
     )
 }

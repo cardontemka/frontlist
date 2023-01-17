@@ -134,3 +134,15 @@
     height: 100%;
     width: 100%;
 }
+
+.songDelete {
+    font-weight: 400;
+    font-size: 14px;
+    color: rgb(200, 200, 200);
+    margin: 0;
+}
+
+.songDelete:hover {
+    font-weight: 600;
+    color: white;
+}
